@@ -1,15 +1,6 @@
 {
-    "books":[
-    {
-        "id": "4",
-        "title": "Hamlet",
-        "author": "William Shakespeare",
-        "quantity": 2
-    },
-    {
-        "id": "5",
-        "title": "Ham",
-        "author": "Will Shake",
-        "quantity": 2
-    }]
+    "id": "5",
+    "title": "Ham",
+    "author": "Will Shake",
+    "quantity": 2
 }
