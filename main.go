@@ -97,6 +97,25 @@ func checkinBook(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, book)
 }
+
+func deleteBook(c *gin.Context) {
+	id := c.Param("id")
+
+	for i, b := range Books {
+		if b.ID == id {
+			Books[i] = Books[len(Books)-1] // Shift a[i+1:] left one index.
+			Books[len(Books)-1] = Book{}   // Erase last element (write zero value).
+			Books = Books[:len(Books)-1]   //Truncate the slice
+			s := "Deleted book: " + b.Title
+			c.IndentedJSON(http.StatusOK, gin.H{
+				"message": s,
+			})
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Could not find book."})
+}
+
 func main() {
 	router := gin.Default()
 	router.GET("/books", getBooks)
@@ -104,5 +123,6 @@ func main() {
 	router.GET("/books/:id", bookById)
 	router.PATCH("/checkout", checkoutBook)
 	router.PATCH("/checkin", checkinBook)
+	router.DELETE("/deletebook/:id", deleteBook)
 	router.Run("localhost:8080")
 }
